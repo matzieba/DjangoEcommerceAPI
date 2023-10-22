@@ -10,6 +10,8 @@ from ecommerce_api.serializers import OrderSerializer
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated & IsSeller]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
