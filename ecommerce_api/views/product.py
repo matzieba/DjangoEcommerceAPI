@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from ecommerce_api.models import Product, ProductCategory
-from ecommerce_api.permissions import IsClient
+from ecommerce_api.permissions import IsClient, IsSeller
 from ecommerce_api.serializers import ProductCategorySerializer, ProductSerializer
 
 
@@ -17,6 +17,15 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = [IsAuthenticated & IsClient]
+
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            self.permission_classes = [AllowAny, ]
+        elif self.action in ['create', 'update', 'partial_update', 'destroy']:
+            self.permission_classes = [IsSeller, ]
+        else:
+            self.permission_classes = [IsAuthenticated & IsClient]
+        return super(self.__class__, self).get_permissions()
 
     def get_queryset(self):
         queryset = Product.objects.all()
