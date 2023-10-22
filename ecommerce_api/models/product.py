@@ -1,8 +1,10 @@
 import os
 from io import BytesIO
 from django.core.files.base import ContentFile
+from django.core.files import File
 from PIL import Image
 from django.db import models
+from django.db.models.fields.files import ImageFieldFile
 
 THUMBNAIL_SIZE = (200, 200)
 
@@ -30,7 +32,7 @@ class Product(models.Model):
             self.thumbnail = self.generate_thumbnail(self.image)
             self.save()
 
-    def generate_thumbnail(self, image):
+    def generate_thumbnail(self, image: ImageFieldFile) -> File:
         image_obj = Image.open(image).convert('RGB')
         image_obj.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
         thumb_name, thumb_extension = os.path.splitext(image.name)

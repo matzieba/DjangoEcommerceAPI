@@ -2,7 +2,7 @@ from model_bakery import baker
 import pytest
 
 from ecommerce_api.models import Product, ProductCategory
-from ecommerce_api.serializers import ProductCategorySerializer
+
 
 
 @pytest.fixture()

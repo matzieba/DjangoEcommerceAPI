@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from ecommerce_api.models import Product, ProductCategory
 from ecommerce_api.permissions import IsClient, IsSeller
-from ecommerce_api.serializers import ProductCategorySerializer, ProductSerializer
+from ecommerce_api.serializers.product import ProductCategorySerializer, ProductSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
