@@ -6,3 +6,5 @@ requests==2.31
 pytest==7.2.0
 pytest-django==4.5.2
 model-bakery==1.9.0
+
+Pillow==9.3.0
