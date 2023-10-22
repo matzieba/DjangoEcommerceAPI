@@ -16,6 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
+from ecommerce_api.views.product import ProductViewSet
+
+router = DefaultRouter()
+
+from ecommerce_api.views.order import OrderViewSet
+
+router.register(r'orders', OrderViewSet, basename='order')
+router.register(r'products', ProductViewSet, basename='product')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
