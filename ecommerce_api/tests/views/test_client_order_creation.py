@@ -15,5 +15,5 @@ def test_order_confirmation_email_sent(db, client, user_client, product):
 
     assert len(mail.outbox) == 1
     email = mail.outbox[0]
-    assert email.subject == f"Order :{response.order.pk} Confirmation"
+    assert email.subject == f"Order:{response.data.get('id', None)} Confirmation"
     assert email.body == 'Your order has been placed successfully.'

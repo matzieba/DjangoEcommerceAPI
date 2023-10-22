@@ -38,7 +38,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         return serializer.save()
 
     def send_confirmation_email(self, order: Order, to_email: str) -> Optional[None]:
-        subject = f'Order: {order.pk} Confirmation'
+        subject = f'Order:{order.pk} Confirmation'
         message = 'Your order has been placed successfully.'
         from_email = 'from@example.com'
-        send_mail(subject, message, from_email, [to_email])
+        send_mail(subject, message, from_email, [to_email], fail_silently=False)

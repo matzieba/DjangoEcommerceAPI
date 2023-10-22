@@ -6,7 +6,8 @@ from ecommerce_api.models import User
 def user_client():
     return baker.make(
         User,
-        type='client'
+        type='client',
+        email='email@email.com',
     )
 
 @pytest.fixture()
