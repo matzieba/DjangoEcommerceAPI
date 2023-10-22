@@ -11,13 +11,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-    # logic for creating an order will depend on your Order Model
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
 
-        # send email using django EmailBackend
         send_mail('Order Confirmation', 'Your order has been placed successfully.', 'from@example.com',
                   ['to@example.com'])
 
