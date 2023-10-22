@@ -1,9 +1,12 @@
 from rest_framework import viewsets
 from django.core.mail import send_mail
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
 from ecommerce_api.models import Order
+from ecommerce_api.permissions import IsSeller
 from ecommerce_api.serializers import OrderSerializer
 
 
