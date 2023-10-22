@@ -31,9 +31,9 @@ def test_update_product_with_client(db, client, user_client, product):
 def test_delete_product_with_seller(db, client, user_seller, product):
     client.force_authenticate(user_seller)
     response = client.delete(f'/ecommerce/products/{product.id}/')
-    assert response.status_code == 204  # No Content
+    assert response.status_code == 204
 
 def test_delete_product_with_client(db, client, user_client, product):
     client.force_authenticate(user_client)
     response = client.delete(f'/ecommerce/products/{product.id}/')
-    assert response.status_code == 403  # Forbidden
+    assert response.status_code == 403
