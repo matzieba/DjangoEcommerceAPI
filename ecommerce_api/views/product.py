@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -17,6 +18,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = [IsAuthenticated & IsClient]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name', 'description', 'category__name', 'price']
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
