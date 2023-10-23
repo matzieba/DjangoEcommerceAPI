@@ -13,6 +13,7 @@ class Order(models.Model):
     payment_due = models.DateTimeField(blank=True, null=True)
     total_price = models.DecimalField(max_digits=6, decimal_places=2)
 
+
 class OrderProduct(models.Model):
     product = models.ForeignKey('ecommerce_api.Product', on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
