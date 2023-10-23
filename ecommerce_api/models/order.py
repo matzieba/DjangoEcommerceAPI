@@ -1,3 +1,5 @@
+
+
 from django.db import models
 
 from django.utils import timezone
@@ -18,3 +20,5 @@ class OrderProduct(models.Model):
     product = models.ForeignKey('ecommerce_api.Product', on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+
+

@@ -1,5 +1,5 @@
 # DjangoEcommerceAPI
-A Django 4 and Django REST Framework based eCommerce API that provides various functionalities including product listing, order management, product management, and user role-based authentication. Features pagination, filtering, sorting, email notifications, and automated thumbnail generation.
+A Django 4 and Django REST Framework based eCommerce API that provides various functionalities including product listing, order management, product management, and user role-based authentication. Features pagination, filtering, sorting, email notifications, and automated thumbnail generation. Use celery for sending payments reminder.
 
 
 Local usage:
@@ -13,5 +13,5 @@ Tests suite usage:
 1. run pytest
 
 
-Creating DockerImage:
-1. docker build -t your_image_name .
+Starting project with payment reminder:
+1. docker compose up -d

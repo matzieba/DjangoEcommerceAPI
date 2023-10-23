@@ -11,3 +11,7 @@ model-bakery==1.9.0
 Pillow==9.3.0
 
 freezegun==1.2.2
+
+celery==5.1.2
+
+redis
