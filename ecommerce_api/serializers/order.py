@@ -48,3 +48,9 @@ class OrderReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('payment_due', 'total_price')
+
+
+class OrderStatsSerializer(serializers.Serializer):
+    date_from = serializers.DateField(required=True)
+    date_to = serializers.DateField(required=True)
+    num_products = serializers.IntegerField(required=True)

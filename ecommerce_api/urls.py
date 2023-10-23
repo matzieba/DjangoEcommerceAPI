@@ -22,7 +22,7 @@ from ecommerce_api.views.product import ProductViewSet
 
 router = DefaultRouter()
 
-from ecommerce_api.views.order import OrderViewSet
+from ecommerce_api.views.order import OrderViewSet, OrderStatsViewSet
 
 api_urls = []
 
@@ -34,4 +34,5 @@ api_urls += router.urls
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("ecommerce/", include(api_urls)),
+    path('ecommerce/order-stats/', OrderStatsViewSet.as_view({'get': 'list'})),
 ]

@@ -2,8 +2,8 @@ from django.core import mail
 from django.utils import timezone, dateparse
 from freezegun import freeze_time
 
-@freeze_time("2023-10-28 07:19:33")
-def test_order_confirmation_email_sent(db, client, user_client, product):
+@freeze_time("2023-10-23 07:19:33")
+def test_order_creation(db, client, user_client, product):
     client.force_authenticate(user=user_client)
 
     product_quantity = 2
@@ -28,3 +28,5 @@ def test_order_confirmation_email_sent(db, client, user_client, product):
 
     expected_total_price = product.price * product_quantity
     assert response.data['total_price'] == str(expected_total_price)
+
+
