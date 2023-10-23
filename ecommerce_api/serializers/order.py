@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from rest_framework import serializers
 from django.utils import timezone
 from ecommerce_api.models import Order, OrderProduct, User, Product
@@ -30,18 +32,19 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             OrderProduct.objects.create(order=order, **product_data)
         return order
 
-    def calculate_total_price(self, products_data):
-        total = 0
+    def calculate_total_price(self, products_data) -> Decimal:
+        total = Decimal(0)
 
         for product_data in products_data:
             product = Product.objects.get(pk=product_data.get('product'))
-            total += product_data['quantity'] * product.price
+            total += Decimal(product_data['quantity']) * Decimal(product.price)
 
         return total
 
 
 class OrderReadSerializer(serializers.ModelSerializer):
+    total_price = serializers.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
         model = Order
-        fields = ('id', 'client', 'delivery_address', 'products', 'date_ordered', 'payment_due', 'total_price')
+        fields = ('payment_due', 'total_price')
