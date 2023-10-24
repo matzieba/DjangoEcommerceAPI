@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from ecommerce_api.views.product import ProductViewSet
+from ecommerce_api.views.user import LoginView, UserMeView
 
 router = DefaultRouter()
 
@@ -35,4 +36,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("ecommerce/", include(api_urls)),
     path('ecommerce/order-stats/', OrderStatsViewSet.as_view({'get': 'list'})),
+    path('login/', LoginView.as_view(), name='api-login'),
+    path('userme/', UserMeView.as_view(), name='userme'),
 ]
