@@ -36,6 +36,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("ecommerce/", include(api_urls)),
     path('ecommerce/order-stats/', OrderStatsViewSet.as_view({'get': 'list'})),
-    path('login/', LoginView.as_view(), name='api-login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('userme/', UserMeView.as_view(), name='userme'),
 ]

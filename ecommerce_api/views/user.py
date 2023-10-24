@@ -10,6 +10,10 @@ from ecommerce_api.serializers.user import UserSerializer
 
 
 class LoginView(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
@@ -19,7 +23,6 @@ class LoginView(APIView):
             return Response({"token": token.key})
         else:
             return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 class UserMeView(RetrieveAPIView):
     serializer_class = UserSerializer
