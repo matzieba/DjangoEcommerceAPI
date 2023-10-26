@@ -16,10 +16,10 @@ def test_order_stats(db, client, user_seller, orders, product1, product2, order_
     first_product_stat = stats_data[0]
     second_product_stat = stats_data[1]
 
-    assert first_product_stat["product"] == product1.pk
+    assert first_product_stat["product"] == product1.name
     assert first_product_stat["orders"] == 5
 
-    assert second_product_stat["product"] == product2.pk
+    assert second_product_stat["product"] == product2.name
     assert second_product_stat["orders"] == 3
 
 
@@ -37,5 +37,5 @@ def test_order_stats_result_limit(db, client, user_seller, orders, product1, pro
 
     first_product_stat = stats_data[0]
 
-    assert first_product_stat["product"] == product1.pk
+    assert first_product_stat["product"] == product1.name
     assert first_product_stat["orders"] == 5
