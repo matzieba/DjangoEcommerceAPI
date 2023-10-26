@@ -16,6 +16,7 @@ class User(AbstractUser):
 
     def assign_group(self):
         group, created = Group.objects.get_or_create(name=self.type)
+        self.save()
         self.groups.add(group)
 
 
