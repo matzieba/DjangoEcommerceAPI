@@ -62,10 +62,10 @@ class OrderStatsViewSet(ListModelMixin, GenericViewSet):
 
         data = (OrderProduct.objects
                 .filter(order__date_ordered__range=[date_from, date_to])
-                .values("product")
+                .values("product__name")
                 .annotate(total=Count("product"))
                 .order_by("-total")[:num_products])
 
-        output = [{"product": d["product"], "orders": d["total"]} for d in data]
+        output = [{"product": d["product__name"], "orders": d["total"]} for d in data]
 
         return Response(output)
