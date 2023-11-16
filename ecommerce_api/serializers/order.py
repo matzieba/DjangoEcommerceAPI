@@ -12,7 +12,7 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
     products = OrderProductSerializer(many=True)
 
     class Meta:
