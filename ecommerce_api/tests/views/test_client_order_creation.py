@@ -10,7 +10,11 @@ def test_order_creation(db, client, user_client, product):
 
     order_data = {
         "client": user_client.pk,
-        "delivery_address": "123 Street, City",
+        "delivery_address_street": "Street",
+        "delivery_address_city": "City",
+        "delivery_address_country": "PL",
+        "delivery_address_house_number": "56A",
+        "delivery_address_postal_code": "XTZ 123456",
         "products": [
             {"product": product.id, "quantity": product_quantity}
         ]

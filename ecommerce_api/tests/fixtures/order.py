@@ -12,7 +12,11 @@ def orders(product1, product2, user_client):
         order = baker.make(
             Order,
             client=user_client,
-            delivery_address='123 Street, City',
+            delivery_address_street='Street',
+            delivery_address_city='City',
+            delivery_address_country='PL',
+            delivery_address_house_number='56A',
+            delivery_address_postal_code='XTZ 123456',
             date_ordered=timezone.now(),
             payment_due=timezone.now() + timezone.timedelta(days=5),
             total_price=product1.price
@@ -28,7 +32,11 @@ def orders(product1, product2, user_client):
         order = baker.make(
             Order,
             client=user_client,
-            delivery_address='123 Street, City',
+            delivery_address_street='Street',
+            delivery_address_city='City',
+            delivery_address_country='PL',
+            delivery_address_house_number='56A',
+            delivery_address_postal_code='XTZ 123456',
             date_ordered=timezone.now(),
             payment_due=timezone.now() + timezone.timedelta(days=5),
             total_price=product2.price

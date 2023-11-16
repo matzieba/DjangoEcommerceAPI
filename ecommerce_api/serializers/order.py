@@ -17,7 +17,17 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('delivery_address', 'products', 'date_ordered', 'payment_due', 'total_price')
+        fields = (
+            'delivery_address_street',
+            'delivery_address_city',
+            'delivery_address_country',
+            'delivery_address_house_number',
+            'delivery_address_postal_code',
+            'products',
+            'date_ordered',
+            'payment_due',
+            'total_price'
+        )
 
     def to_internal_value(self, data):
         products_data = data.get('products', None)
