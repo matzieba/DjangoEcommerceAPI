@@ -12,12 +12,22 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
     products = OrderProductSerializer(many=True)
 
     class Meta:
         model = Order
-        fields = ('client', 'delivery_address', 'products', 'date_ordered', 'payment_due', 'total_price')
+        fields = (
+            'delivery_address_street',
+            'delivery_address_city',
+            'delivery_address_country',
+            'delivery_address_house_number',
+            'delivery_address_postal_code',
+            'products',
+            'date_ordered',
+            'payment_due',
+            'total_price'
+        )
 
     def to_internal_value(self, data):
         products_data = data.get('products', None)
@@ -26,10 +36,12 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         return super().to_internal_value(data)
 
     def create(self, validated_data):
+        user = self.context['request'].user
         products_data = validated_data.pop('products')
+        validated_data['client'] = user
         order = Order.objects.create(**validated_data)
-        for product_data in products_data:
-            OrderProduct.objects.create(order=order, **product_data)
+        order_products = [OrderProduct(order=order, **product_data) for product_data in products_data]
+        OrderProduct.objects.bulk_create(order_products)
         return order
 
     def calculate_total_price(self, products_data) -> Decimal:
