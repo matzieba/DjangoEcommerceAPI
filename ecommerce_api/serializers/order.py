@@ -17,7 +17,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('client', 'delivery_address', 'products', 'date_ordered', 'payment_due', 'total_price')
+        fields = ('delivery_address', 'products', 'date_ordered', 'payment_due', 'total_price')
 
     def to_internal_value(self, data):
         products_data = data.get('products', None)
@@ -26,7 +26,9 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         return super().to_internal_value(data)
 
     def create(self, validated_data):
+        user = self.context['request'].user
         products_data = validated_data.pop('products')
+        validated_data['client'] = user
         order = Order.objects.create(**validated_data)
         order_products = [OrderProduct(order=order, **product_data) for product_data in products_data]
         OrderProduct.objects.bulk_create(order_products)
