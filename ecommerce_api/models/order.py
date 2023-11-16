@@ -8,8 +8,12 @@ from ecommerce_api import settings
 
 
 class Order(models.Model):
-    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-    delivery_address = models.CharField(max_length=300)
+    client = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True)
+    delivery_address_street = models.CharField(max_length=100, blank=True, null=True)
+    delivery_address_city = models.CharField(max_length=50, blank=True, null=True)
+    delivery_address_country = models.CharField(max_length=50, blank=True, null=True)
+    delivery_address_house_number = models.CharField(max_length=50, blank=True, null=True)
+    delivery_address_postal_code = models.CharField(max_length=25, blank=True, null=True)
     products = models.ManyToManyField('ecommerce_api.Product', through='ecommerce_api.OrderProduct')
     date_ordered = models.DateTimeField(default=timezone.now)
     payment_due = models.DateTimeField(blank=True, null=True)

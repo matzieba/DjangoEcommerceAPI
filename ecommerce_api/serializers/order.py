@@ -28,8 +28,8 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         products_data = validated_data.pop('products')
         order = Order.objects.create(**validated_data)
-        for product_data in products_data:
-            OrderProduct.objects.create(order=order, **product_data)
+        order_products = [OrderProduct(order=order, **product_data) for product_data in products_data]
+        OrderProduct.objects.bulk_create(order_products)
         return order
 
     def calculate_total_price(self, products_data) -> Decimal:
