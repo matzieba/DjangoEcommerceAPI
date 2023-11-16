@@ -10,9 +10,9 @@ class User(AbstractUser):
 
     def assign_group(self):
         if self.is_staff:
-            group_name = 'Staff'
+            group_name = 'seller'
         else:
-            group_name = 'Clients'
+            group_name = 'client'
         group, created = Group.objects.get_or_create(name=group_name)
         self.groups.add(group)
 

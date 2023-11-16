@@ -2,17 +2,20 @@ from model_bakery import baker
 import pytest
 from ecommerce_api.models import User
 
+
 @pytest.fixture()
 def user_client():
     return baker.make(
         User,
-        type='client',
         email='email@email.com',
     )
 
+
 @pytest.fixture()
 def user_seller():
-    return baker.make(
+    user = baker.make(
         User,
-        type='seller'
     )
+    user.is_staff = True
+    user.save()
+    return user
