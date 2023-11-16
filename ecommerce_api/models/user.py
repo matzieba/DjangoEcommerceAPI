@@ -7,16 +7,13 @@ from django.contrib.auth.models import Group
 from django.dispatch import receiver
 
 class User(AbstractUser):
-    USER_TYPE_CHOICES = (
-        ('client', 'client'),
-        ('seller', 'seller'),
-    )
-
-    type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
 
     def assign_group(self):
-        group, created = Group.objects.get_or_create(name=self.type)
-        self.save()
+        if self.is_staff:
+            group_name = 'Staff'
+        else:
+            group_name = 'Clients'
+        group, created = Group.objects.get_or_create(name=group_name)
         self.groups.add(group)
 
 
@@ -27,6 +24,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def assign_group_to_user(sender, instance, created, **kwargs):
+def assign_group_to_user(sender, instance: User, created: bool, **kwargs):
     if created:
         instance.assign_group()
